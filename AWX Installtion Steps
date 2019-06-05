@@ -1,0 +1,61 @@
+System Requirements
+The system that runs the AWX service will need to satisfy the following requirements
+
+At leasts 4GB of memory
+At least 2 cpu cores
+At least 20GB of space
+Running Docker, Openshift, or Kubernetes
+If you choose to use an external PostgreSQL database, please note that the minimum version is 9.6+.
+
+
+#installtion of docker
+
+Uninstall old versions
+
+$ sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+
+Install Docker CE
+Install using the repository
+
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install docker-ce docker-ce-cli containerd.io
+
+pip uninstall docker-py --no-cache-dir
+pip install docker==3.1.4
+
+Verify that Docker CE is installed correctly by running the hello-world image.
+
+$sudo docker run hello-world
+
+Installtion of AWX:
+Start the build
+
+git https://github.com/ansible/awx.git
+
+# Set the working directory to installer
+$ cd installer
+
+# Run the Ansible playbook
+$ ansible-playbook -i inventory install.yml
+
+Accessing AWX
+The AWX web server is accessible on the deployment host, using the host_port value set in the inventory file. The default URL is http://localhost.
+
+You will prompted with a login dialog. The default administrator username is admin, and the password is password.
+
+
+
+
+
+
+
+
